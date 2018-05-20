@@ -12,7 +12,7 @@ html, body{
 
 
 }
-div, p, ul{
+div, p, ul, input{
     padding: 0;
     margin: 0;
 }
@@ -82,9 +82,12 @@ div, p, ul{
 
                 i{
                     font-size: 20px;
-                    color: white;
                     margin-right: 20px;
                 }
+            }
+            li.selected{
+                background-color: #435466;
+                color: #00b4cf;
             }
         }
 
@@ -100,7 +103,7 @@ div, p, ul{
     width: 952px;
     margin-left: 248px;
     height: 100%;
-    padding: 14px;
+    padding: 14px 28px;
 
     .card-row{
         width:100%;
@@ -110,7 +113,6 @@ div, p, ul{
             height: 115px;
             display: flex;
             -webkit-box-flex: 1;
-            margin: 0 14px;
             position: relative;
             color: #fff;
 
@@ -133,6 +135,7 @@ div, p, ul{
 
         .idle{
             background-color: #7FBC39;
+            margin: 0 14px;
         }
 
         .card-title{
@@ -181,6 +184,95 @@ div, p, ul{
         }
     }
 
+    .filter-bar{
+        width: 100%;
+        margin: 14px 0;
+        background: #fff;
+        display: -webkit-box;
+
+        .filter-item{
+            height: 50px;
+            line-height:50px;
+            display: flex;
+            -webkit-box-flex: 1;
+            position: relative;
+
+        }
+        :nth-child(1){
+
+            .filter-title{
+                position: absolute;
+                width: 33.33%;
+                height: 100%;
+                border-right: solid .5px #f3f3f3;
+                text-align: center;
+
+                &:hover{
+                    color: #00b4cf;
+                    border-bottom: 3px solid #00b4cf;
+                }
+            }
+            .selected{
+                color: #00b4cf;
+                border-bottom: 3px solid #00b4cf;
+            }
+            :nth-child(2){
+                left: 33.34%;
+            }
+            :nth-child(3){
+                right: 0;
+            }
+        }
+
+        .search-item{
+            margin: 0 14px;
+
+            input{
+                position: absolute;
+                height:30px;
+                width: 66.7%;
+                border: 0;
+                background-color: #f3f3f3;
+                margin: 10px 0;
+                box-shadow: 1px 1px inset rgba(0,0,0,.2);
+
+            }
+            i{
+                position: absolute;
+                z-index: 1;
+                font-size: 20px;
+                color: #999;
+                margin: 15px 0;
+                padding: 0 10px;
+            }
+
+        }
+
+        .show-style{
+            i{
+                position: absolute;
+                font-size: 20px;
+                margin: 15px 30px;
+
+                &:hover{
+                    color: #00b4cf;
+                }
+            }
+            .selected{
+                color: #00b4cf;
+            }
+            .icon-th-list{
+                right: 0;
+            }
+            .icon-th-card{
+                right: 50px;
+            }
+
+
+        }
+
+
+    }
 
 }
 .footer{
