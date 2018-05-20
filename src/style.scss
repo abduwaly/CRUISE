@@ -124,7 +124,7 @@ div, p, ul, input{
 }
 .content{
     position: relative;
-    width: 952px;
+    width: 922px;
     margin-left: 248px;
     height: 100%;
     padding: 14px 28px;
@@ -291,10 +291,118 @@ div, p, ul, input{
             .icon-th-card{
                 right: 50px;
             }
-
-
         }
 
+    }
+
+    .app-list{
+        width: 100%;
+
+        .app-item{
+            height: 100px;
+            width: 100%;
+            margin-bottom: 14px;
+            background-color: #fff;
+            position: relative;
+
+            .os-img{
+                position: absolute;
+                height: 80px;
+                width: 80px;
+                padding: 10px;
+            }
+            .first-line{
+                position: absolute;
+                right: 0;
+                top:0;
+                height: 50px;
+                width: 85%;
+
+                i{
+                    font-size: 16px;
+                    padding: 0 10px;
+                }
+
+                span{
+                    line-height: 50px;
+                }
+
+                .app-name{
+                    color: #00b4cf;
+                    font-weight: bold;
+                    width: 250px;
+                    display: inline-block;
+                }
+                .app-tag{
+                    color: #fff;
+                    line-height: 14px;
+                    padding: 2px 7px;
+                }
+                .tag-idle{
+                    background-color: #7fbc39;
+                    margin: 0 45px 0 15px;
+                }
+                .tag-building{
+                    background-color: #ff9a2a;
+                    margin: 0 18px 0 15px;
+                }
+                .app-info{
+                    display: inline-block;
+                    margin-right: 30px;
+                }
+            }
+            .second-line{
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 50px;
+                width: 85%;
+                line-height: 50px;
+
+                .icon-plus{
+                    font-size: 18px;
+                    background-color: #00b4cf;
+                    color: #fff;
+                    padding: 5px 6px;
+                    margin: 10px;
+
+                    &:hover{
+                        background-color: #01869a;
+                    }
+                }
+
+                .env-list{
+                    color: #000;
+                    display: inline-block;
+                    list-style: none;
+
+                    .env-item{
+                        display: inline-block;
+                        margin: 0 10px 0 0;
+
+
+                        .env-name{
+                            line-height: 1em;
+                            background-color: #efefef;
+                            padding: 8px;
+
+                            .icon-trash{
+                                margin: 0 5px;
+
+                                &:hover{
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+
+
+                    }
+
+                }
+
+
+            }
+        }
 
     }
 
