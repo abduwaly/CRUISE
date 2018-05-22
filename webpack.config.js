@@ -21,12 +21,7 @@ module.exports = {
             }, {
                 loader: "sass-loader" // compiles Sass to CSS
             }]
-        },
-            // {
-            // test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
-            // loader: 'file-loader?path=../assets/font-icons/font'
-            // }
-        ]
+        }]
     },
 
 };
