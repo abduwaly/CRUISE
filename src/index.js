@@ -45,10 +45,25 @@ const me = {
     },
 
     iconPlusClicked : function(e){
-        console.log(e);
         const modal = document.getElementById('modal');
-        modal.style.left = e.clientX - 20 + "px";
-        modal.style.top = e.clientY + 30 + "px";
+        const ups = modal.getElementsByClassName('up');
+        const downs = modal.getElementsByClassName('down');
+
+        if(window.screen.height - e.screenY > 230){
+            ups[0].style.display = 'block';
+            ups[1].style.display = 'block';
+            downs[0].style.display = 'none';
+            downs[1].style.display = 'none';
+            modal.style.left = e.clientX - 20 + "px";
+            modal.style.top = e.clientY + 30 + "px";
+        }else{
+            ups[0].style.display = 'none';
+            ups[1].style.display = 'none';
+            downs[0].style.display = 'block';
+            downs[1].style.display = 'block';
+            modal.style.left = e.clientX - 20 + "px";
+            modal.style.top = e.clientY - 200 + "px";
+        }
         modal.style.display = 'block';
         // bind self events
         me.bindIconClose(modal);   // icon-close

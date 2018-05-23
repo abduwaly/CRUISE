@@ -1,16 +1,15 @@
+html{
+    overflow: hidden;
+}
 html, body{
     height: 100%;
-    overflow: hidden;
-    width: 1200px;
+    overflow-y: auto;
     padding: 0;
     margin: 0;
     background-color: #f3f3f3;
     color: #2d4054;
     font-family: "Avenir","Helvetica","Arial","sans-serif";
     font-size: 14px;
-
-
-
 }
 div, p, ul, input{
     padding: 0;
@@ -47,17 +46,20 @@ div, p, ul, input{
     }
 }
 .main{
-    position: absolute;
+    //position: absolute;
+    position: relative;
     top: 0;
     bottom: 0;
     right: 0;
     margin: 60px auto 26px;
     left: 0;
     width: 1200px;
+    height: 100%;
     background-color: #f3f3f3;;
 }
 .sidebar{
-    position: relative;
+    //position: relative;
+    position: fixed;
     float: left;
     width: 246px;
     height: 100%;
@@ -94,9 +96,9 @@ div, p, ul, input{
     }
 
     .history{
-        position: absolute;
-        bottom: 0;
-        height: 40%;
+        position: relative;
+        margin-top: 150px;
+        overflow-y: auto;
 
         .history-title{
             font-size:24px;
@@ -408,7 +410,8 @@ div, p, ul, input{
 
 }
 .footer{
-    position: absolute;
+    //position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
@@ -485,7 +488,7 @@ div, p, ul, input{
         font-size: 14px;
     }
 
-    .top-angle1{
+    .up-angle1{
         width: 0px;
         height: 0px;
         position: absolute;
@@ -496,7 +499,7 @@ div, p, ul, input{
         border-left: 11px solid transparent;
     }
 
-    .top-angle2{
+    .up-angle2{
         width: 0px;
         height: 0px;
         position: absolute;
@@ -506,5 +509,28 @@ div, p, ul, input{
         border-bottom: 20px solid #fff;
         border-left: 11px solid transparent;
     }
+
+    .down-angle1{
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        bottom: -40px;
+        border-top: 20px solid #00b4cf;
+        border-right: 11px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-left: 11px solid transparent;
+    }
+
+    .down-angle2{
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        bottom: -38px;
+        border-top: 20px solid #fff;
+        border-right: 11px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-left: 11px solid transparent;
+    }
+
 
 }
