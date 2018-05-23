@@ -74,62 +74,74 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 const me = {
+    
+    $angleUp : document.getElementById('angle-up'),
+    $angleDown : document.getElementById('angle-down'),
+    $dropdown : document.getElementById('dropdown'),
+    $modal : document.getElementById('modal'),
+    $inputResource : document.getElementById('input-resources'),
 
-    bindIconTrash : function () {
+    bindBtnAvatar: function () {
+        const avatar = document.getElementById('user-avatar');
+        avatar.onclick =function (e) {
+            (me.$dropdown.style.display !== 'block') ? me.dropMenu() : me.rollupMenu();
+        }
+    },
+
+    bindIconTrash: function () {
         const delIcons = document.getElementsByClassName('icon-trash');
-        for(let i = 0; i<delIcons.length; i++){
+        for (let i = 0; i < delIcons.length; i++) {
             delIcons[i].onclick = function (e) {
                 me.delClicked(e);
             }
         }
     },
 
-    bindIconPlus : function () {
+    bindIconPlus: function () {
         const addBtns = document.getElementsByClassName('icon-plus');
-        for(let i=0; i<addBtns.length; i++){
+        for (let i = 0; i < addBtns.length; i++) {
             addBtns[i].onclick = function (e) {
                 me.iconPlusClicked(e);
             }
         }
     },
 
-    bindBtnAdd : function(e, _modal){
+    bindBtnAdd: function (e, _modal) {
         const addBtn = document.getElementById('add-res-btn');
         addBtn.onclick = function () {
-            const inputVal = document.getElementById('input-resources').value;
+            const inputVal = me.$inputResource.value;
             (inputVal) ? me.addResource(e, inputVal) : '';
-            // close modal
             me.closeModal(_modal);
         }
     },
 
-    bindIconClose : function (_modal) {
+    bindIconClose: function (_modal) {
         const iconClose = document.getElementById('modal-close-icon');
         iconClose.onclick = function () {
             me.closeModal(_modal);
         }
     },
 
-    bindBtnCancel : function (_modal) {
+    bindBtnCancel: function (_modal) {
         const btnCancel = document.getElementById('cancel-btn');
         btnCancel.onclick = function () {
             me.closeModal(_modal);
         }
     },
 
-    iconPlusClicked : function(e){
-        const modal = document.getElementById('modal');
+    iconPlusClicked: function (e) {
+        const modal = me.$modal;
         const ups = modal.getElementsByClassName('up');
         const downs = modal.getElementsByClassName('down');
 
-        if(window.screen.height - e.screenY > 230){
+        if (window.screen.height - e.screenY > 250) {
             ups[0].style.display = 'block';
             ups[1].style.display = 'block';
             downs[0].style.display = 'none';
             downs[1].style.display = 'none';
             modal.style.left = e.clientX - 20 + "px";
             modal.style.top = e.clientY + 30 + "px";
-        }else{
+        } else {
             ups[0].style.display = 'none';
             ups[1].style.display = 'none';
             downs[0].style.display = 'block';
@@ -137,7 +149,9 @@ const me = {
             modal.style.left = e.clientX - 20 + "px";
             modal.style.top = e.clientY - 200 + "px";
         }
+        me.rollupMenu(); // rollup user menu
         modal.style.display = 'block';
+
         // bind self events
         me.bindIconClose(modal);   // icon-close
         me.bindBtnCancel(modal);   // cancel-btn
@@ -145,10 +159,10 @@ const me = {
 
     },
 
-    addResource : function (e, v) {
+    addResource: function (e, v) {
         const parentUl = e.srcElement.parentElement.getElementsByClassName('env-list')[0];
-        const vals = (v.length>1) ? v.split(',') : v;
-        for(let i=0; i < vals.length; i++){
+        const vals = (v.length > 1) ? v.split(',') : v;
+        for (let i = 0; i < vals.length; i++) {
             const liEle = me.createEle('li', 'env-item');
             const spanEle = me.createEle('span', 'env-name');
             const iconEle = me.createEle('i', 'icon-trash');
@@ -156,26 +170,39 @@ const me = {
             liEle.appendChild(spanEle).appendChild(iconEle);
             parentUl.appendChild(liEle);
         }
-        // bind new trash icons
-        me.bindIconTrash();
+        me.bindIconTrash(); // bind new trash icons
     },
 
-    createEle : function (tag, className) {
+    createEle: function (tag, className) {
         const el = document.createElement(tag);
         el.className = className;
         return el;
     },
 
-    delClicked : function (e) {
+    delClicked: function (e) {
         e.srcElement.parentElement.parentElement.remove();
     },
 
-    closeModal : function (_modal) {
+    closeModal: function (_modal) {
         _modal.style.display = 'none';
+        me.$inputResource.value = '';
+    },
+
+    dropMenu: function () {
+        me.$angleDown.style.display = 'none';
+        me.$angleUp.style.display = 'block';
+        me.$dropdown.style.display = 'block';
+    },
+
+    rollupMenu: function () {
+        me.$angleUp.style.display = 'none';
+        me.$angleDown.style.display = 'block';
+        me.$dropdown.style.display = 'none';
     }
 }
 
 window.onload = function () {
+    me.bindBtnAvatar();
     me.bindIconTrash();
     me.bindIconPlus();
 }
@@ -223,7 +250,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "html {\n  overflow: hidden; }\n\nhtml, body {\n  height: 100%;\n  overflow-y: auto;\n  padding: 0;\n  margin: 0;\n  background-color: #f3f3f3;\n  color: #2d4054;\n  font-family: \"Avenir\",\"Helvetica\",\"Arial\",\"sans-serif\";\n  font-size: 14px; }\n\ndiv, p, ul, input {\n  padding: 0;\n  margin: 0; }\n\n.header {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 0;\n  background-color: #fff;\n  height: 60px;\n  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);\n  text-align: center;\n  padding: 0 100px;\n  z-index: 1; }\n  .header .logo {\n    height: 40px;\n    padding: 10px 0; }\n  .header .avatar-wrapper {\n    height: 60px;\n    width: 60px;\n    display: inline-block;\n    position: relative;\n    float: right; }\n  .header .avatar {\n    border-radius: 50%;\n    width: 40px;\n    padding: 10px; }\n\n.main {\n  position: relative;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  margin: 60px auto 26px;\n  left: 0;\n  width: 1200px;\n  height: 100%;\n  background-color: #f3f3f3; }\n\n.sidebar {\n  position: fixed;\n  float: left;\n  width: 246px;\n  height: 100%;\n  border: solid 1px #eee;\n  background-color: #2d4054; }\n  .sidebar .side-menu ul.menu-list {\n    list-style: none;\n    padding: 25px 0; }\n    .sidebar .side-menu ul.menu-list li {\n      color: #ccc;\n      height: 45px;\n      line-height: 45px;\n      padding-left: 30px; }\n      .sidebar .side-menu ul.menu-list li:hover {\n        background-color: #435466;\n        color: #00b4cf; }\n      .sidebar .side-menu ul.menu-list li i {\n        font-size: 20px;\n        margin-right: 20px; }\n    .sidebar .side-menu ul.menu-list li.selected {\n      background-color: #435466;\n      color: #00b4cf; }\n  .sidebar .history {\n    position: relative;\n    margin-top: 150px;\n    overflow-y: auto; }\n    .sidebar .history .history-title {\n      font-size: 24px;\n      color: #ccc;\n      padding: 15px; }\n    .sidebar .history ul {\n      padding-left: 30px; }\n      .sidebar .history ul li {\n        font-size: 12px;\n        color: #999;\n        line-height: 2em; }\n        .sidebar .history ul li:hover {\n          color: #00b4cf; }\n\n.content {\n  position: relative;\n  width: 922px;\n  margin-left: 248px;\n  height: 100%;\n  padding: 14px 28px; }\n  .content .card-row {\n    width: 100%;\n    display: -webkit-box; }\n    .content .card-row .card {\n      height: 115px;\n      display: flex;\n      -webkit-box-flex: 1;\n      position: relative;\n      color: #fff; }\n      .content .card-row .card i {\n        position: absolute;\n        font-size: 144px;\n        opacity: 0.2;\n        left: 80px; }\n    .content .card-row .building {\n      background-color: #FFB900; }\n    .content .card-row .idle {\n      background-color: #7FBC39;\n      margin: 0 14px; }\n    .content .card-row .card-title {\n      position: absolute;\n      padding: 15px 10px;\n      font-size: 18px;\n      font-weight: bold; }\n    .content .card-row .count {\n      position: absolute;\n      right: 24px;\n      bottom: 20px;\n      font-size: 48px; }\n    .content .card-row .statistics {\n      background-color: #fff;\n      color: #000; }\n      .content .card-row .statistics .s-item {\n        position: absolute;\n        width: 33.33%;\n        height: 100%; }\n        .content .card-row .statistics .s-item p {\n          text-align: center;\n          padding: 18px; }\n        .content .card-row .statistics .s-item .item-title {\n          font-size: 12px; }\n        .content .card-row .statistics .s-item .item-count {\n          font-size: 20px; }\n      .content .card-row .statistics :nth-child(2) {\n        left: 33.34%; }\n      .content .card-row .statistics :nth-child(3) {\n        right: 0; }\n  .content .filter-bar {\n    width: 100%;\n    margin: 14px 0;\n    background: #fff;\n    display: -webkit-box; }\n    .content .filter-bar .filter-item {\n      height: 50px;\n      line-height: 50px;\n      display: flex;\n      -webkit-box-flex: 1;\n      position: relative; }\n    .content .filter-bar :nth-child(1) .filter-title {\n      position: absolute;\n      width: 33.33%;\n      height: 100%;\n      border-right: solid .5px #f3f3f3;\n      text-align: center; }\n      .content .filter-bar :nth-child(1) .filter-title:hover {\n        color: #00b4cf;\n        border-bottom: 3px solid #00b4cf; }\n    .content .filter-bar :nth-child(1) .selected {\n      color: #00b4cf;\n      border-bottom: 3px solid #00b4cf; }\n    .content .filter-bar :nth-child(1) :nth-child(2) {\n      left: 33.34%; }\n    .content .filter-bar :nth-child(1) :nth-child(3) {\n      right: 0; }\n    .content .filter-bar .search-item {\n      margin: 0 14px; }\n      .content .filter-bar .search-item input {\n        position: absolute;\n        height: 30px;\n        width: 66.7%;\n        border: 0;\n        background-color: #f3f3f3;\n        margin: 10px 0;\n        box-shadow: 1px 1px inset rgba(0, 0, 0, 0.2); }\n      .content .filter-bar .search-item i {\n        position: absolute;\n        z-index: 1;\n        font-size: 20px;\n        color: #999;\n        margin: 15px 0;\n        padding: 0 10px; }\n    .content .filter-bar .show-style i {\n      position: absolute;\n      font-size: 20px;\n      margin: 15px 30px; }\n      .content .filter-bar .show-style i:hover {\n        color: #00b4cf; }\n    .content .filter-bar .show-style .selected {\n      color: #00b4cf; }\n    .content .filter-bar .show-style .icon-th-list {\n      right: 0; }\n    .content .filter-bar .show-style .icon-th-card {\n      right: 50px; }\n  .content .app-list {\n    width: 100%; }\n    .content .app-list .app-item {\n      height: 100px;\n      width: 100%;\n      margin-bottom: 14px;\n      background-color: #fff;\n      position: relative; }\n      .content .app-list .app-item .os-img {\n        position: absolute;\n        height: 80px;\n        width: 80px;\n        padding: 10px; }\n      .content .app-list .app-item .first-line {\n        position: absolute;\n        right: 0;\n        top: 0;\n        height: 50px;\n        width: 85%; }\n        .content .app-list .app-item .first-line i {\n          font-size: 16px;\n          padding: 0 10px; }\n        .content .app-list .app-item .first-line span {\n          line-height: 50px; }\n        .content .app-list .app-item .first-line .app-name {\n          color: #00b4cf;\n          font-weight: bold;\n          width: 250px;\n          display: inline-block; }\n        .content .app-list .app-item .first-line .app-tag {\n          color: #fff;\n          line-height: 14px;\n          padding: 2px 7px; }\n        .content .app-list .app-item .first-line .tag-idle {\n          background-color: #7fbc39;\n          margin: 0 45px 0 15px; }\n        .content .app-list .app-item .first-line .tag-building {\n          background-color: #ff9a2a;\n          margin: 0 18px 0 15px; }\n        .content .app-list .app-item .first-line .app-info {\n          display: inline-block;\n          margin-right: 30px; }\n      .content .app-list .app-item .second-line {\n        position: absolute;\n        right: 0;\n        bottom: 0;\n        height: 50px;\n        width: 85%;\n        line-height: 50px; }\n        .content .app-list .app-item .second-line .icon-plus {\n          font-size: 18px;\n          background-color: #00b4cf;\n          color: #fff;\n          padding: 5px 6px;\n          margin: 10px; }\n          .content .app-list .app-item .second-line .icon-plus:hover {\n            background-color: #01869a; }\n        .content .app-list .app-item .second-line .env-list {\n          color: #000;\n          display: inline-block;\n          list-style: none; }\n          .content .app-list .app-item .second-line .env-list .env-item {\n            display: inline-block;\n            margin: 0 10px 0 0; }\n            .content .app-list .app-item .second-line .env-list .env-item .env-name {\n              line-height: 1em;\n              background-color: #efefef;\n              padding: 8px; }\n              .content .app-list .app-item .second-line .env-list .env-item .env-name .icon-trash {\n                margin: 0 5px; }\n                .content .app-list .app-item .second-line .env-list .env-item .env-name .icon-trash:hover {\n                  cursor: pointer; }\n\n.footer {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 24px;\n  background-color: #fff;\n  text-align: center;\n  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.3); }\n  .footer .copyright {\n    line-height: 24px; }\n\n#modal {\n  display: none;\n  position: absolute;\n  width: 570px;\n  height: 150px;\n  z-index: 100;\n  padding: 12px;\n  border: 1px solid #00b4cf;\n  background-color: #ffffff;\n  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3); }\n  #modal .icon-close {\n    position: absolute;\n    color: #00b4cf;\n    font-size: 20px;\n    right: 12px;\n    top: 5px;\n    padding: 3px; }\n  #modal .modal-tips {\n    height: 34px;\n    line-height: 34px;\n    color: #777; }\n  #modal input {\n    height: 34px;\n    border: 1px solid #BABABA;\n    border-radius: 3px;\n    width: 100%;\n    box-shadow: 1px 1px inset rgba(0, 0, 0, 0.2); }\n  #modal .btn-section {\n    height: 30px;\n    width: 100%;\n    margin: 30px 0; }\n    #modal .btn-section :nth-child(1) {\n      background-color: #00b4cf; }\n      #modal .btn-section :nth-child(1):hover {\n        background-color: #01869a; }\n    #modal .btn-section :nth-child(2) {\n      background-color: #435466; }\n      #modal .btn-section :nth-child(2):hover {\n        background-color: #2d4054; }\n  #modal button {\n    height: 30px;\n    margin-right: 20px;\n    border: 0;\n    padding: 0 20px;\n    color: #fff;\n    font-size: 14px; }\n  #modal .up-angle1 {\n    width: 0px;\n    height: 0px;\n    position: absolute;\n    top: -40px;\n    border-top: 20px solid transparent;\n    border-right: 11px solid transparent;\n    border-bottom: 20px solid #00b4cf;\n    border-left: 11px solid transparent; }\n  #modal .up-angle2 {\n    width: 0px;\n    height: 0px;\n    position: absolute;\n    top: -38px;\n    border-top: 20px solid transparent;\n    border-right: 11px solid transparent;\n    border-bottom: 20px solid #fff;\n    border-left: 11px solid transparent; }\n  #modal .down-angle1 {\n    width: 0px;\n    height: 0px;\n    position: absolute;\n    bottom: -40px;\n    border-top: 20px solid #00b4cf;\n    border-right: 11px solid transparent;\n    border-bottom: 20px solid transparent;\n    border-left: 11px solid transparent; }\n  #modal .down-angle2 {\n    width: 0px;\n    height: 0px;\n    position: absolute;\n    bottom: -38px;\n    border-top: 20px solid #fff;\n    border-right: 11px solid transparent;\n    border-bottom: 20px solid transparent;\n    border-left: 11px solid transparent; }\n", ""]);
+exports.push([module.i, "html {\n  overflow: hidden; }\n\nhtml, body {\n  height: 100%;\n  overflow-y: auto;\n  padding: 0;\n  margin: 0;\n  background-color: #f3f3f3;\n  color: #2d4054;\n  font-family: \"Avenir\", \"Helvetica\", \"Arial\", \"sans-serif\";\n  font-size: 14px; }\n\ndiv, p, ul, input {\n  padding: 0;\n  margin: 0; }\n\nbutton:hover, li:hover, #user-avatar:hover, .icon-plus:hover, .icon-trash:hover {\n  cursor: pointer; }\n\n.header {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 0;\n  background-color: #fff;\n  height: 60px;\n  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);\n  text-align: center;\n  padding: 0 100px;\n  z-index: 1; }\n  .header .logo {\n    height: 40px;\n    padding: 10px 0; }\n  .header .avatar-wrapper {\n    height: 60px;\n    width: 80px;\n    display: inline-block;\n    position: relative;\n    float: right; }\n    .header .avatar-wrapper .avatar {\n      border-radius: 50%;\n      width: 40px;\n      padding: 10px; }\n    .header .avatar-wrapper i {\n      position: absolute;\n      top: 25px;\n      right: 0; }\n    .header .avatar-wrapper .icon-angle-up {\n      display: none; }\n\n.main {\n  position: relative;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  margin: 60px auto 26px;\n  left: 0;\n  width: 1200px;\n  height: 100%;\n  background-color: #f3f3f3; }\n\n.sidebar {\n  position: fixed;\n  float: left;\n  width: 246px;\n  height: 100%;\n  border: solid 1px #eee;\n  background-color: #2d4054; }\n  .sidebar .side-menu ul.menu-list {\n    list-style: none;\n    padding: 25px 0; }\n    .sidebar .side-menu ul.menu-list li {\n      color: #ccc;\n      height: 45px;\n      line-height: 45px;\n      padding-left: 30px; }\n      .sidebar .side-menu ul.menu-list li:hover {\n        background-color: #435466;\n        color: #00b4cf; }\n      .sidebar .side-menu ul.menu-list li i {\n        font-size: 20px;\n        margin-right: 20px; }\n    .sidebar .side-menu ul.menu-list li.selected {\n      background-color: #435466;\n      color: #00b4cf; }\n  .sidebar .history {\n    position: relative;\n    top: 150px; }\n    .sidebar .history .history-title {\n      font-size: 24px;\n      color: #ccc;\n      padding: 15px; }\n    .sidebar .history ul {\n      padding-left: 30px; }\n      .sidebar .history ul li {\n        font-size: 12px;\n        color: #999;\n        line-height: 2em; }\n        .sidebar .history ul li:hover {\n          color: #00b4cf; }\n\n.content {\n  position: relative;\n  width: 922px;\n  margin-left: 248px;\n  height: 100%;\n  padding: 14px 28px; }\n  .content .card-row {\n    width: 100%;\n    display: -webkit-box; }\n    .content .card-row .card {\n      height: 115px;\n      display: flex;\n      -webkit-box-flex: 1;\n      position: relative;\n      color: #fff; }\n      .content .card-row .card i {\n        position: absolute;\n        font-size: 144px;\n        opacity: 0.2;\n        left: 80px; }\n    .content .card-row .building {\n      background-color: #FFB900; }\n    .content .card-row .idle {\n      background-color: #7FBC39;\n      margin: 0 14px; }\n    .content .card-row .card-title {\n      position: absolute;\n      padding: 15px 10px;\n      font-size: 18px;\n      font-weight: bold; }\n    .content .card-row .count {\n      position: absolute;\n      right: 24px;\n      bottom: 20px;\n      font-size: 48px; }\n    .content .card-row .statistics {\n      background-color: #fff;\n      color: #000; }\n      .content .card-row .statistics .s-item {\n        position: absolute;\n        width: 33.33%;\n        height: 100%; }\n        .content .card-row .statistics .s-item p {\n          text-align: center;\n          padding: 18px; }\n        .content .card-row .statistics .s-item .item-title {\n          font-size: 12px; }\n        .content .card-row .statistics .s-item .item-count {\n          font-size: 20px; }\n      .content .card-row .statistics :nth-child(2) {\n        left: 33.34%; }\n      .content .card-row .statistics :nth-child(3) {\n        right: 0; }\n  .content .filter-bar {\n    width: 100%;\n    margin: 14px 0;\n    background: #fff;\n    display: -webkit-box; }\n    .content .filter-bar .filter-item {\n      height: 50px;\n      line-height: 50px;\n      display: flex;\n      -webkit-box-flex: 1;\n      position: relative; }\n    .content .filter-bar :nth-child(1) .filter-title {\n      position: absolute;\n      width: 33.33%;\n      height: 100%;\n      border-right: solid .5px #f3f3f3;\n      text-align: center; }\n      .content .filter-bar :nth-child(1) .filter-title:hover {\n        color: #00b4cf;\n        border-bottom: 3px solid #00b4cf; }\n    .content .filter-bar :nth-child(1) .selected {\n      color: #00b4cf;\n      border-bottom: 3px solid #00b4cf; }\n    .content .filter-bar :nth-child(1) :nth-child(2) {\n      left: 33.34%; }\n    .content .filter-bar :nth-child(1) :nth-child(3) {\n      right: 0; }\n    .content .filter-bar .search-item {\n      margin: 0 14px; }\n      .content .filter-bar .search-item input {\n        position: absolute;\n        height: 30px;\n        width: 66.7%;\n        border: 0;\n        background-color: #f3f3f3;\n        margin: 10px 0;\n        box-shadow: 1px 1px inset rgba(0, 0, 0, 0.2); }\n      .content .filter-bar .search-item i {\n        position: absolute;\n        font-size: 20px;\n        color: #999;\n        margin: 15px 0;\n        padding: 0 10px; }\n    .content .filter-bar .show-style i {\n      position: absolute;\n      font-size: 20px;\n      margin: 15px 30px; }\n      .content .filter-bar .show-style i:hover {\n        color: #00b4cf; }\n    .content .filter-bar .show-style .selected {\n      color: #00b4cf; }\n    .content .filter-bar .show-style .icon-th-list {\n      right: 0; }\n    .content .filter-bar .show-style .icon-th-card {\n      right: 50px; }\n  .content .app-list {\n    width: 100%;\n    padding-bottom: 50px; }\n    .content .app-list .app-item {\n      height: 100px;\n      width: 100%;\n      margin-bottom: 14px;\n      background-color: #fff;\n      position: relative; }\n      .content .app-list .app-item .os-img {\n        position: absolute;\n        height: 80px;\n        width: 80px;\n        padding: 10px; }\n      .content .app-list .app-item .first-line {\n        position: absolute;\n        right: 0;\n        top: 0;\n        height: 50px;\n        width: 85%; }\n        .content .app-list .app-item .first-line i {\n          font-size: 16px;\n          padding: 0 10px; }\n        .content .app-list .app-item .first-line span {\n          line-height: 50px; }\n        .content .app-list .app-item .first-line .app-name {\n          color: #00b4cf;\n          font-weight: bold;\n          width: 250px;\n          display: inline-block; }\n        .content .app-list .app-item .first-line .app-tag {\n          color: #fff;\n          line-height: 14px;\n          padding: 2px 7px; }\n        .content .app-list .app-item .first-line .tag-idle {\n          background-color: #7fbc39;\n          margin: 0 45px 0 15px; }\n        .content .app-list .app-item .first-line .tag-building {\n          background-color: #ff9a2a;\n          margin: 0 18px 0 15px; }\n        .content .app-list .app-item .first-line .app-info {\n          display: inline-block;\n          margin-right: 30px; }\n      .content .app-list .app-item .second-line {\n        position: absolute;\n        right: 0;\n        bottom: 0;\n        height: 50px;\n        width: 85%;\n        line-height: 50px; }\n        .content .app-list .app-item .second-line .icon-plus {\n          position: relative;\n          top: 3px;\n          font-size: 18px;\n          background-color: #00b4cf;\n          color: #fff;\n          padding: 6px 7px;\n          margin: 10px; }\n          .content .app-list .app-item .second-line .icon-plus:hover {\n            background-color: #01869a; }\n        .content .app-list .app-item .second-line .env-list {\n          color: #000;\n          display: inline-block;\n          list-style: none; }\n          .content .app-list .app-item .second-line .env-list .env-item {\n            display: inline-block;\n            margin: 0 10px 0 0; }\n            .content .app-list .app-item .second-line .env-list .env-item .env-name {\n              line-height: 1em;\n              background-color: #efefef;\n              padding: 8px; }\n              .content .app-list .app-item .second-line .env-list .env-item .env-name .icon-trash {\n                margin: 0 5px; }\n                .content .app-list .app-item .second-line .env-list .env-item .env-name .icon-trash:hover {\n                  cursor: pointer; }\n      .content .app-list .app-item .action-btns {\n        position: absolute;\n        right: 0px;\n        bottom: 10px; }\n        .content .app-list .app-item .action-btns .deny-btn {\n          height: 30px;\n          margin-right: 20px;\n          border: 0;\n          padding: 0 20px;\n          color: #fff;\n          font-size: 14px;\n          background-color: #00b4cf; }\n          .content .app-list .app-item .action-btns .deny-btn:hover {\n            background-color: #01869a; }\n          .content .app-list .app-item .action-btns .deny-btn i.icon-deny {\n            padding-right: 10px; }\n\n.footer {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 24px;\n  background-color: #fff;\n  text-align: center;\n  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.3); }\n  .footer .copyright {\n    line-height: 24px; }\n\n#modal {\n  display: none;\n  position: absolute;\n  width: 570px;\n  height: 150px;\n  z-index: 100;\n  padding: 12px;\n  border: 1px solid #00b4cf;\n  background-color: #ffffff;\n  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3); }\n  #modal .icon-close {\n    position: absolute;\n    color: #00b4cf;\n    font-size: 20px;\n    right: 12px;\n    top: 5px;\n    padding: 3px; }\n  #modal .input-section {\n    margin: 10px 0; }\n    #modal .input-section .modal-tips {\n      height: 34px;\n      line-height: 34px;\n      color: #777; }\n    #modal .input-section input {\n      height: 34px;\n      border: 1px solid #BABABA;\n      border-radius: 3px;\n      width: 98%;\n      color: #00b4cf;\n      padding-left: 10px;\n      box-shadow: 1px 1px inset rgba(0, 0, 0, 0.2); }\n  #modal .btn-section {\n    height: 30px;\n    width: 100%;\n    margin: 20px 0; }\n    #modal .btn-section :nth-child(1) {\n      background-color: #00b4cf; }\n      #modal .btn-section :nth-child(1):hover {\n        background-color: #01869a; }\n    #modal .btn-section :nth-child(2) {\n      background-color: #435466; }\n      #modal .btn-section :nth-child(2):hover {\n        background-color: #2d4054; }\n  #modal button {\n    height: 30px;\n    margin-right: 20px;\n    border: 0;\n    padding: 0 20px;\n    color: #fff;\n    font-size: 14px; }\n  #modal .up-angle1 {\n    width: 0px;\n    height: 0px;\n    position: absolute;\n    top: -40px;\n    border-top: 20px solid transparent;\n    border-right: 11px solid transparent;\n    border-bottom: 20px solid #00b4cf;\n    border-left: 11px solid transparent; }\n  #modal .up-angle2 {\n    width: 0px;\n    height: 0px;\n    position: absolute;\n    top: -38px;\n    border-top: 20px solid transparent;\n    border-right: 11px solid transparent;\n    border-bottom: 20px solid #fff;\n    border-left: 11px solid transparent; }\n  #modal .down-angle1 {\n    width: 0px;\n    height: 0px;\n    position: absolute;\n    bottom: -40px;\n    border-top: 20px solid #00b4cf;\n    border-right: 11px solid transparent;\n    border-bottom: 20px solid transparent;\n    border-left: 11px solid transparent; }\n  #modal .down-angle2 {\n    width: 0px;\n    height: 0px;\n    position: absolute;\n    bottom: -38px;\n    border-top: 20px solid #fff;\n    border-right: 11px solid transparent;\n    border-bottom: 20px solid transparent;\n    border-left: 11px solid transparent; }\n\n#dropdown {\n  display: none;\n  right: 90px;\n  top: 60px;\n  position: absolute;\n  width: 140px;\n  background-color: #fff;\n  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);\n  z-index: 99; }\n  #dropdown ul {\n    list-style: none;\n    padding: 10px 0; }\n    #dropdown ul li {\n      height: 34px;\n      line-height: 34px;\n      padding: 0 10px; }\n      #dropdown ul li:hover {\n        background-color: #efefef; }\n      #dropdown ul li i {\n        margin-right: 10px; }\n", ""]);
 
 // exports
 
