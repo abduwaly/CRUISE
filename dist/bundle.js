@@ -69,27 +69,30 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_scss__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tools__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_scss__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__style_scss__);
+
+
 
 
 const me = {
-    
-    $angleUp : document.getElementById('angle-up'),
-    $angleDown : document.getElementById('angle-down'),
-    $dropdown : document.getElementById('dropdown'),
-    $modal : document.getElementById('modal'),
-    $inputResource : document.getElementById('input-resources'),
+
+    $angleUp: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('angle-up'),
+    $angleDown: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('angle-down'),
+    $dropdown: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('dropdown'),
+    $modal: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('modal'),
+    $inputResource: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('input-resources'),
 
     bindBtnAvatar: function () {
-        const avatar = document.getElementById('user-avatar');
-        avatar.onclick =function (e) {
+        const avatar = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('user-avatar');
+        avatar.onclick = function (e) {
             (me.$dropdown.style.display !== 'block') ? me.dropMenu() : me.rollupMenu();
         }
     },
 
     bindIconTrash: function () {
-        const delIcons = document.getElementsByClassName('icon-trash');
+        const delIcons = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $class */])('icon-trash');
         for (let i = 0; i < delIcons.length; i++) {
             delIcons[i].onclick = function (e) {
                 me.delClicked(e);
@@ -98,7 +101,7 @@ const me = {
     },
 
     bindIconPlus: function () {
-        const addBtns = document.getElementsByClassName('icon-plus');
+        const addBtns = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $class */])('icon-plus');
         for (let i = 0; i < addBtns.length; i++) {
             addBtns[i].onclick = function (e) {
                 me.iconPlusClicked(e);
@@ -107,7 +110,7 @@ const me = {
     },
 
     bindBtnAdd: function (e, _modal) {
-        const addBtn = document.getElementById('add-res-btn');
+        const addBtn = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('add-res-btn');
         addBtn.onclick = function () {
             const inputVal = me.$inputResource.value;
             (inputVal) ? me.addResource(e, inputVal) : '';
@@ -116,14 +119,14 @@ const me = {
     },
 
     bindIconClose: function (_modal) {
-        const iconClose = document.getElementById('modal-close-icon');
+        const iconClose = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('modal-close-icon');
         iconClose.onclick = function () {
             me.closeModal(_modal);
         }
     },
 
     bindBtnCancel: function (_modal) {
-        const btnCancel = document.getElementById('cancel-btn');
+        const btnCancel = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('cancel-btn');
         btnCancel.onclick = function () {
             me.closeModal(_modal);
         }
@@ -131,26 +134,26 @@ const me = {
 
     iconPlusClicked: function (e) {
         const modal = me.$modal;
-        const ups = modal.getElementsByClassName('up');
-        const downs = modal.getElementsByClassName('down');
+        const ups = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $class */])('point-up');
+        const downs = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $class */])('point-down');
 
         if (window.screen.height - e.screenY > 250) {
-            ups[0].style.display = 'block';
-            ups[1].style.display = 'block';
-            downs[0].style.display = 'none';
-            downs[1].style.display = 'none';
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(ups[0]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(ups[1]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(downs[0]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(downs[1]);
             modal.style.left = e.clientX - 20 + "px";
             modal.style.top = e.clientY + 30 + "px";
         } else {
-            ups[0].style.display = 'none';
-            ups[1].style.display = 'none';
-            downs[0].style.display = 'block';
-            downs[1].style.display = 'block';
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(ups[0]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(ups[1]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(downs[0]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(downs[1]);
             modal.style.left = e.clientX - 20 + "px";
             modal.style.top = e.clientY - 200 + "px";
         }
         me.rollupMenu(); // rollup user menu
-        modal.style.display = 'block';
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(modal);
 
         // bind self events
         me.bindIconClose(modal);   // icon-close
@@ -163,9 +166,9 @@ const me = {
         const parentUl = e.srcElement.parentElement.getElementsByClassName('env-list')[0];
         const vals = (v.length > 1) ? v.split(',') : v;
         for (let i = 0; i < vals.length; i++) {
-            const liEle = me.createEle('li', 'env-item');
-            const spanEle = me.createEle('span', 'env-name');
-            const iconEle = me.createEle('i', 'icon-trash');
+            const liEle = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["b" /* $create */])('li', 'env-item');
+            const spanEle = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["b" /* $create */])('span', 'env-name');
+            const iconEle = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["b" /* $create */])('i', 'icon-trash');
             spanEle.innerText = vals[i];
             liEle.appendChild(spanEle).appendChild(iconEle);
             parentUl.appendChild(liEle);
@@ -173,31 +176,25 @@ const me = {
         me.bindIconTrash(); // bind new trash icons
     },
 
-    createEle: function (tag, className) {
-        const el = document.createElement(tag);
-        el.className = className;
-        return el;
-    },
-
     delClicked: function (e) {
         e.srcElement.parentElement.parentElement.remove();
     },
 
     closeModal: function (_modal) {
-        _modal.style.display = 'none';
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(_modal);
         me.$inputResource.value = '';
     },
 
     dropMenu: function () {
-        me.$angleDown.style.display = 'none';
-        me.$angleUp.style.display = 'block';
-        me.$dropdown.style.display = 'block';
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(me.$angleDown);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(me.$angleUp);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(me.$dropdown);
     },
 
     rollupMenu: function () {
-        me.$angleUp.style.display = 'none';
-        me.$angleDown.style.display = 'block';
-        me.$dropdown.style.display = 'none';
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(me.$angleUp);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(me.$angleDown);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(me.$dropdown);
     }
 }
 
@@ -212,12 +209,45 @@ window.onload = function () {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["d"] = $id;
+/* harmony export (immutable) */ __webpack_exports__["a"] = $class;
+/* harmony export (immutable) */ __webpack_exports__["b"] = $create;
+/* harmony export (immutable) */ __webpack_exports__["e"] = $show;
+/* harmony export (immutable) */ __webpack_exports__["c"] = $hide;
+
+function $id(eleId) {
+    return document.getElementById(eleId);
+}
+
+function $class(className) {
+    return document.getElementsByClassName(className);
+}
+
+function $create(tag, className) {
+    const el = document.createElement(tag);
+    el.className = className;
+    return el;
+}
+
+function $show(ele) {
+    ele.style.display = 'block';
+}
+
+function $hide(ele) {
+    ele.style.display = 'none';
+}
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(2);
+var content = __webpack_require__(3);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -225,7 +255,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(4)(content, options);
+var update = __webpack_require__(5)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -242,10 +272,10 @@ if(false) {
 }
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(4)(false);
 // imports
 
 
@@ -256,7 +286,7 @@ exports.push([module.i, "html {\n  overflow: hidden; }\n\nhtml, body {\n  height
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 /*
@@ -338,7 +368,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -394,7 +424,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(5);
+var	fixUrls = __webpack_require__(6);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -710,7 +740,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 
