@@ -1,7 +1,7 @@
 {
   "name": "cruise",
   "version": "1.0.0",
-  "description": "Cruise - ThroughtWorks homework",
+  "description": "Cruise - ThroughtWorks Front-End Homework",
   "main": "index.js",
   "scripts": {
     "test": "echo 'NO TEST FOR NOW' ",

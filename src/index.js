@@ -89,7 +89,8 @@ const me = {
     },
 
     addResource: function (e, v) {
-        const parentUl = e.srcElement.parentElement.getElementsByClassName('env-list')[0];
+        const srcEle = e.target || e.srcElement;
+        const parentUl = srcEle.parentElement.getElementsByClassName('env-list')[0];
         const vals = (v.length > 1) ? v.split(',') : v;
         for (let i = 0; i < vals.length; i++) {
             const liEle = $create('li', 'env-item');
@@ -103,7 +104,8 @@ const me = {
     },
 
     delClicked: function (e) {
-        e.srcElement.parentElement.parentElement.remove();
+        const srcEle = e.target || e.srcElement;
+        srcEle.parentElement.parentElement.remove();
     },
 
     closeModal: function (_modal) {
