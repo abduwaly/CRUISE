@@ -3,7 +3,9 @@
 
 ## Preview (PROD)
 
-* Open `dist/index.html` in your browser
+* Online : https://abduwaly.github.io/Cruise/
+
+* Local : Clone the project, open `dist/index.html` in your browser
 
 ## How to run (DEV)
 
