@@ -1,20 +1,24 @@
 # CRUISE
 ▶ ThoughtWorks  Front-End Homework ◀  Without Third-party Framework &amp; Library
 
-## How to run
+## Preview (PROD)
 
-1. Clone the project  https://github.com/abduwaly/CRUISE.git
+* Open `dist/index.html` in your browser
 
-2. Install node.js on your computer if you have not. Otherwise,follow the following steps:
+## How to run (DEV)
 
-* Install dependencies
+* Clone the project  https://github.com/abduwaly/CRUISE.git
+
+* Install node.js on your computer if you have not. Otherwise,follow the following steps:
+
+1. Install dependencies
 <pre>
 npm install
 </pre>
 
-* Build the project
+2. Build the project
 <pre>
 npm run build
 </pre>
 
-3. Open `dist/index.html` in your browser
+* Open `dist/index.html` in your browser
