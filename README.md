@@ -17,6 +17,4 @@ npm install
 npm run build
 </pre>
 
-3. Put `'dist'` folder in a web-server
-
-4. Open `dist/index.html` in your browser
+3. Open `dist/index.html` in your browser
