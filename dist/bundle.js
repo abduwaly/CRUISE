@@ -85,6 +85,11 @@ const me = {
     $modal: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('modal'),
     $inputResource: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('input-resources'),
 
+
+    initAppList : function () {
+        //TODO:
+    },
+
     /**
      * bind avatar btn click event
      */
@@ -129,8 +134,12 @@ const me = {
         const addBtn = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('add-res-btn');
         addBtn.onclick = function () {
             const inputVal = me.$inputResource.value;
-            (inputVal) ? me.appendResource(e, inputVal) : '';
-            me.closeModal(_modal);
+            if(inputVal){
+                me.appendResource(e, inputVal);
+                me.closeModal(_modal);
+            }else{
+                alert('Invalid input!');
+            }
         }
     },
 
@@ -258,6 +267,7 @@ const me = {
  * initializing
  */
 window.onload = function () {
+    me.initAppList();
     me.bindBtnAvatar();
     me.bindIconTrash();
     me.bindIconPlus();
