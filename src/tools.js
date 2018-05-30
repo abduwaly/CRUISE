@@ -1,4 +1,3 @@
-
 export function $id(eleId) {
     return document.getElementById(eleId);
 }
@@ -19,4 +18,19 @@ export function $show(ele) {
 
 export function $hide(ele) {
     ele.style.display = 'none';
+}
+
+export function $append(parent, text) {
+    if (typeof text === 'string') {
+        var temp = document.createElement('div');
+        temp.innerHTML = text;
+        var frag = document.createDocumentFragment();
+        while (temp.firstChild) {
+            frag.appendChild(temp.firstChild);
+        }
+        parent.appendChild(frag);
+    }
+    else {
+        parent.appendChild(text);
+    }
 }

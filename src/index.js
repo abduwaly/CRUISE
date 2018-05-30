@@ -1,5 +1,6 @@
-import { $id, $class, $show, $hide, $create } from './tools';
-import './style.scss';
+import {$id, $class, $show, $hide, $create, $append} from './tools';
+import './style.scss'; // style should be imported before template!!!
+import * as Template from './template.js';
 
 
 const me = {
@@ -11,9 +12,43 @@ const me = {
     $modal: $id('modal'),
     $inputResource: $id('input-resources'),
 
+    // optional data for an app item
+    options: {
+        osIcons: ['cent_os','debin','suse','ubuntu','windows'],
+        tags: [
+            {name: 'idle', class: 'tag-idle'},
+            {name: 'building', class: 'tag-building'}
+        ],
+        resources: ['Firefox', 'Safari', 'Ubuntu', 'Chrome']
+    },
 
-    initAppList : function () {
-        //TODO:
+
+    initAppList: function () {
+        const appNum = 5;
+        for (let i = 1; i < appNum + 1; i++) {
+            const randomItem = me.generateRandomItem(i);
+            $append($id('app-list'), Template.appItem(randomItem));
+        }
+    },
+
+    generateRandomItem: function (i) {
+        const random = (i % 2);
+        const itemData = {
+            osIcon: me.options.osIcons[Math.floor(Math.random()* me.options.osIcons.length)],
+            appName: 'bjstdmngbgr0' + i + '.thoughtworks.com',
+            tag: {
+                name: me.options.tags[random].name,
+                class: me.options.tags[random].class
+            },
+            ip: '192.168.1.' + Math.ceil(Math.random() * 100),
+            path: '/var/lib/cruise-agent',
+            resources: me.options.resources.sort().slice(0,3),
+            btn: {
+                flag: Boolean(random) ? '' : 'none',
+                name: 'Deny'
+            }
+        };
+        return itemData;
     },
 
     /**
@@ -52,7 +87,7 @@ const me = {
 
     /**
      * bind modal's "Add Resources" button click event
-     * 
+     *
      * @param e     //triggered event
      * @param _modal    //event source modal
      */
@@ -60,10 +95,10 @@ const me = {
         const addBtn = $id('add-res-btn');
         addBtn.onclick = function () {
             const inputVal = me.$inputResource.value;
-            if(inputVal){
+            if (inputVal) {
                 me.appendResource(e, inputVal);
                 me.closeModal(_modal);
-            }else{
+            } else {
                 alert('Invalid input!');
             }
         }
@@ -83,7 +118,7 @@ const me = {
 
     /**
      * bind modal close-icon click event
-     * 
+     *
      * @param _modal    //event source modal
      */
     bindIconClose: function (_modal) {
@@ -95,7 +130,7 @@ const me = {
 
     /**
      * add resources
-     * 
+     *
      * @param e     // triggered event
      */
     addResources: function (e) {
@@ -152,7 +187,7 @@ const me = {
 
     /**
      * remove a resource after trash-icon clicked
-     * 
+     *
      * @param e     // triggered event
      */
     rmResource: function (e) {

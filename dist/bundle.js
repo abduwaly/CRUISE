@@ -72,29 +72,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__tools__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_scss__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__style_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__template_js__ = __webpack_require__(7);
 
+ // style should be imported before template!!!
 
 
 
 const me = {
 
     // common used elements
-    $angleUp: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('angle-up'),
-    $angleDown: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('angle-down'),
-    $dropdown: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('dropdown'),
-    $modal: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('modal'),
-    $inputResource: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('input-resources'),
+    $angleUp: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('angle-up'),
+    $angleDown: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('angle-down'),
+    $dropdown: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('dropdown'),
+    $modal: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('modal'),
+    $inputResource: Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('input-resources'),
+
+    // optional data for an app item
+    options: {
+        osIcons: ['cent_os','debin','suse','ubuntu','windows'],
+        tags: [
+            {name: 'idle', class: 'tag-idle'},
+            {name: 'building', class: 'tag-building'}
+        ],
+        resources: ['Firefox', 'Safari', 'Ubuntu', 'Chrome']
+    },
 
 
-    initAppList : function () {
-        //TODO:
+    initAppList: function () {
+        const appNum = 5;
+        for (let i = 1; i < appNum + 1; i++) {
+            const randomItem = me.generateRandomItem(i);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $append */])(Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('app-list'), __WEBPACK_IMPORTED_MODULE_2__template_js__["a" /* appItem */](randomItem));
+        }
+    },
+
+    generateRandomItem: function (i) {
+        const random = (i % 2);
+        const itemData = {
+            osIcon: me.options.osIcons[Math.floor(Math.random()* me.options.osIcons.length)],
+            appName: 'bjstdmngbgr0' + i + '.thoughtworks.com',
+            tag: {
+                name: me.options.tags[random].name,
+                class: me.options.tags[random].class
+            },
+            ip: '192.168.1.' + Math.ceil(Math.random() * 100),
+            path: '/var/lib/cruise-agent',
+            resources: me.options.resources.sort().slice(0,3),
+            btn: {
+                flag: Boolean(random) ? '' : 'none',
+                name: 'Deny'
+            }
+        };
+        return itemData;
     },
 
     /**
      * bind avatar btn click event
      */
     bindBtnAvatar: function () {
-        const avatar = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('user-avatar');
+        const avatar = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('user-avatar');
         avatar.onclick = function (e) {
             (me.$dropdown.style.display !== 'block') ? me.dropMenu() : me.rollupMenu();
         }
@@ -104,7 +140,7 @@ const me = {
      * bind trash icon click event
      */
     bindIconTrash: function () {
-        const delIcons = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $class */])('icon-trash');
+        const delIcons = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["b" /* $class */])('icon-trash');
         for (let i = 0; i < delIcons.length; i++) {
             delIcons[i].onclick = function (e) {
                 me.rmResource(e);
@@ -116,7 +152,7 @@ const me = {
      * bind plus icon click event
      */
     bindIconPlus: function () {
-        const addBtns = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $class */])('icon-plus');
+        const addBtns = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["b" /* $class */])('icon-plus');
         for (let i = 0; i < addBtns.length; i++) {
             addBtns[i].onclick = function (e) {
                 me.addResources(e);
@@ -126,18 +162,18 @@ const me = {
 
     /**
      * bind modal's "Add Resources" button click event
-     * 
+     *
      * @param e     //triggered event
      * @param _modal    //event source modal
      */
     bindBtnAdd: function (e, _modal) {
-        const addBtn = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('add-res-btn');
+        const addBtn = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('add-res-btn');
         addBtn.onclick = function () {
             const inputVal = me.$inputResource.value;
-            if(inputVal){
+            if (inputVal) {
                 me.appendResource(e, inputVal);
                 me.closeModal(_modal);
-            }else{
+            } else {
                 alert('Invalid input!');
             }
         }
@@ -149,7 +185,7 @@ const me = {
      * @param _modal    // event source modal
      */
     bindBtnCancel: function (_modal) {
-        const btnCancel = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('cancel-btn');
+        const btnCancel = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('cancel-btn');
         btnCancel.onclick = function () {
             me.closeModal(_modal);
         }
@@ -157,11 +193,11 @@ const me = {
 
     /**
      * bind modal close-icon click event
-     * 
+     *
      * @param _modal    //event source modal
      */
     bindIconClose: function (_modal) {
-        const iconClose = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $id */])('modal-close-icon');
+        const iconClose = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('modal-close-icon');
         iconClose.onclick = function () {
             me.closeModal(_modal);
         }
@@ -169,32 +205,32 @@ const me = {
 
     /**
      * add resources
-     * 
+     *
      * @param e     // triggered event
      */
     addResources: function (e) {
         const modal = me.$modal;
-        const ups = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $class */])('point-up');
-        const downs = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $class */])('point-down');
+        const ups = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["b" /* $class */])('point-up');
+        const downs = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["b" /* $class */])('point-down');
 
         if (window.screen.height - e.screenY > 250) {
-            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(ups[0]);
-            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(ups[1]);
-            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(downs[0]);
-            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(downs[1]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["f" /* $show */])(ups[0]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["f" /* $show */])(ups[1]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $hide */])(downs[0]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $hide */])(downs[1]);
             modal.style.left = e.clientX - 20 + "px";
             modal.style.top = e.clientY + 30 + "px";
         } else {
-            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(ups[0]);
-            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(ups[1]);
-            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(downs[0]);
-            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(downs[1]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $hide */])(ups[0]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $hide */])(ups[1]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["f" /* $show */])(downs[0]);
+            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["f" /* $show */])(downs[1]);
             modal.style.left = e.clientX - 20 + "px";
             modal.style.top = e.clientY - 200 + "px";
         }
 
         me.rollupMenu(); // rollup user menu
-        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(modal);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["f" /* $show */])(modal);
 
         // bind self events
         me.bindIconClose(modal);   // icon-close
@@ -214,9 +250,9 @@ const me = {
         const parentUl = srcEle.parentElement.getElementsByClassName('env-list')[0];
         const v_arr = (v.length > 1) ? v.split(',') : v;
         for (let i = 0; i < v_arr.length; i++) {
-            const liEle = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["b" /* $create */])('li', 'env-item');
-            const spanEle = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["b" /* $create */])('span', 'env-name');
-            const iconEle = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["b" /* $create */])('i', 'icon-trash');
+            const liEle = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $create */])('li', 'env-item');
+            const spanEle = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $create */])('span', 'env-name');
+            const iconEle = Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $create */])('i', 'icon-trash');
             spanEle.innerText = v_arr[i];
             liEle.appendChild(spanEle).appendChild(iconEle);
             parentUl.appendChild(liEle);
@@ -226,7 +262,7 @@ const me = {
 
     /**
      * remove a resource after trash-icon clicked
-     * 
+     *
      * @param e     // triggered event
      */
     rmResource: function (e) {
@@ -240,7 +276,7 @@ const me = {
      * @param _modal    // modal to close
      */
     closeModal: function (_modal) {
-        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(_modal);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $hide */])(_modal);
         me.$inputResource.value = '';
     },
 
@@ -248,18 +284,18 @@ const me = {
      * drop the user menu
      */
     dropMenu: function () {
-        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(me.$angleDown);
-        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(me.$angleUp);
-        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(me.$dropdown);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $hide */])(me.$angleDown);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["f" /* $show */])(me.$angleUp);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["f" /* $show */])(me.$dropdown);
     },
 
     /**
      * rollup user menu
      */
     rollupMenu: function () {
-        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(me.$angleUp);
-        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $show */])(me.$angleDown);
-        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["c" /* $hide */])(me.$dropdown);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $hide */])(me.$angleUp);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["f" /* $show */])(me.$angleDown);
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["d" /* $hide */])(me.$dropdown);
     }
 }
 
@@ -281,12 +317,12 @@ window.onload = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["d"] = $id;
-/* harmony export (immutable) */ __webpack_exports__["a"] = $class;
-/* harmony export (immutable) */ __webpack_exports__["b"] = $create;
-/* harmony export (immutable) */ __webpack_exports__["e"] = $show;
-/* harmony export (immutable) */ __webpack_exports__["c"] = $hide;
-
+/* harmony export (immutable) */ __webpack_exports__["e"] = $id;
+/* harmony export (immutable) */ __webpack_exports__["b"] = $class;
+/* harmony export (immutable) */ __webpack_exports__["c"] = $create;
+/* harmony export (immutable) */ __webpack_exports__["f"] = $show;
+/* harmony export (immutable) */ __webpack_exports__["d"] = $hide;
+/* harmony export (immutable) */ __webpack_exports__["a"] = $append;
 function $id(eleId) {
     return document.getElementById(eleId);
 }
@@ -308,6 +344,22 @@ function $show(ele) {
 function $hide(ele) {
     ele.style.display = 'none';
 }
+
+function $append(parent, text) {
+    if (typeof text === 'string') {
+        var temp = document.createElement('div');
+        temp.innerHTML = text;
+        var frag = document.createDocumentFragment();
+        while (temp.firstChild) {
+            frag.appendChild(temp.firstChild);
+        }
+        parent.appendChild(frag);
+    }
+    else {
+        parent.appendChild(text);
+    }
+}
+
 
 /***/ }),
 /* 2 */
@@ -902,6 +954,44 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = appItem;
+function appItem(data) {
+    return '<div class="app-item">\
+                <img class="os-img" src="./assets/os-icons/'+ data.osIcon +'.png">\
+                <div class="first-line">\
+                    <i class="icon-desktop"></i>\
+                    <span class="app-name">'+ data.appName +'</span>\
+                    <span class="app-tag '+ data.tag.class +'">' + data.tag.name + '</span>\
+                    <i class="icon-info"></i>\
+                    <span class="app-info">'+ data.ip +'</span>\
+                    <i class="icon-folder"></i>\
+                    <span class="app-info">'+ data.path +'</span>\
+                </div>\
+                <div class="second-line">\
+                    <i class="icon-plus"></i>\
+                    <ul class="env-list">\
+                        <li class="env-item">\
+                            <span class="env-name">'+ data.resources[0] +' <i class="icon-trash"></i></span>\
+                        </li>\
+                        <li class="env-item">\
+                            <span class="env-name">'+ data.resources[1] +' <i class="icon-trash"></i></span>\
+                        </li>\
+                        <li class="env-item">\
+                            <span class="env-name">'+ data.resources[2] +' <i class="icon-trash"></i></span>\
+                        </li>\
+                    </ul>\
+                </div>\
+                <div class="action-btns" style="display: '+ data.btn.flag +'">\
+                    <button class="deny-btn"><i class="icon-deny"></i>'+ data.btn.name +'</button>\
+                </div>\
+            </div>';
+}
 
 /***/ })
 /******/ ]);
