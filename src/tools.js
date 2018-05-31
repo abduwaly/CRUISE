@@ -21,16 +21,11 @@ export function $hide(ele) {
 }
 
 export function $append(parent, text) {
-    if (typeof text === 'string') {
-        var temp = document.createElement('div');
-        temp.innerHTML = text;
-        var frag = document.createDocumentFragment();
-        while (temp.firstChild) {
-            frag.appendChild(temp.firstChild);
-        }
-        parent.appendChild(frag);
+    let temp = document.createElement('div');
+    temp.innerHTML = text;
+    let frag = document.createDocumentFragment();
+    while (temp.firstChild) {
+        frag.appendChild(temp.firstChild);// firstChild will be deleted after this operation
     }
-    else {
-        parent.appendChild(text);
-    }
+    parent.appendChild(frag);
 }

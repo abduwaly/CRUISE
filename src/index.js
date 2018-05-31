@@ -1,5 +1,5 @@
 import {$id, $class, $show, $hide, $create, $append} from './tools';
-import './style.scss'; // style should be imported before template!!!
+import './style.scss';
 import * as Template from './template.js';
 
 
@@ -14,7 +14,7 @@ const me = {
 
     // optional data for an app item
     options: {
-        osIcons: ['cent_os','debin','suse','ubuntu','windows'],
+        osIcons: ['cent_os', 'debin', 'suse', 'ubuntu', 'windows'],
         tags: [
             {name: 'idle', class: 'tag-idle'},
             {name: 'building', class: 'tag-building'}
@@ -25,16 +25,18 @@ const me = {
 
     initAppList: function () {
         const appNum = 5;
+        let cache = '';
         for (let i = 1; i < appNum + 1; i++) {
             const randomItem = me.generateRandomItem(i);
-            $append($id('app-list'), Template.appItem(randomItem));
+            cache += Template.appItem(randomItem);
         }
+        $append($id('app-list'), cache)
     },
 
     generateRandomItem: function (i) {
         const random = (i % 2);
         const itemData = {
-            osIcon: me.options.osIcons[Math.floor(Math.random()* me.options.osIcons.length)],
+            osIcon: me.options.osIcons[Math.floor(Math.random() * me.options.osIcons.length)],
             appName: 'bjstdmngbgr0' + i + '.thoughtworks.com',
             tag: {
                 name: me.options.tags[random].name,
@@ -42,7 +44,7 @@ const me = {
             },
             ip: '192.168.1.' + Math.ceil(Math.random() * 100),
             path: '/var/lib/cruise-agent',
-            resources: me.options.resources.sort().slice(0,3),
+            resources: me.options.resources.sort().slice(0, 3),
             btn: {
                 flag: Boolean(random) ? '' : 'none',
                 name: 'Deny'

@@ -74,7 +74,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__style_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__template_js__ = __webpack_require__(7);
 
- // style should be imported before template!!!
+
 
 
 
@@ -89,7 +89,7 @@ const me = {
 
     // optional data for an app item
     options: {
-        osIcons: ['cent_os','debin','suse','ubuntu','windows'],
+        osIcons: ['cent_os', 'debin', 'suse', 'ubuntu', 'windows'],
         tags: [
             {name: 'idle', class: 'tag-idle'},
             {name: 'building', class: 'tag-building'}
@@ -100,16 +100,18 @@ const me = {
 
     initAppList: function () {
         const appNum = 5;
+        let cache = '';
         for (let i = 1; i < appNum + 1; i++) {
             const randomItem = me.generateRandomItem(i);
-            Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $append */])(Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('app-list'), __WEBPACK_IMPORTED_MODULE_2__template_js__["a" /* appItem */](randomItem));
+            cache += __WEBPACK_IMPORTED_MODULE_2__template_js__["a" /* appItem */](randomItem);
         }
+        Object(__WEBPACK_IMPORTED_MODULE_0__tools__["a" /* $append */])(Object(__WEBPACK_IMPORTED_MODULE_0__tools__["e" /* $id */])('app-list'), cache)
     },
 
     generateRandomItem: function (i) {
         const random = (i % 2);
         const itemData = {
-            osIcon: me.options.osIcons[Math.floor(Math.random()* me.options.osIcons.length)],
+            osIcon: me.options.osIcons[Math.floor(Math.random() * me.options.osIcons.length)],
             appName: 'bjstdmngbgr0' + i + '.thoughtworks.com',
             tag: {
                 name: me.options.tags[random].name,
@@ -117,7 +119,7 @@ const me = {
             },
             ip: '192.168.1.' + Math.ceil(Math.random() * 100),
             path: '/var/lib/cruise-agent',
-            resources: me.options.resources.sort().slice(0,3),
+            resources: me.options.resources.sort().slice(0, 3),
             btn: {
                 flag: Boolean(random) ? '' : 'none',
                 name: 'Deny'
@@ -346,18 +348,13 @@ function $hide(ele) {
 }
 
 function $append(parent, text) {
-    if (typeof text === 'string') {
-        var temp = document.createElement('div');
-        temp.innerHTML = text;
-        var frag = document.createDocumentFragment();
-        while (temp.firstChild) {
-            frag.appendChild(temp.firstChild);
-        }
-        parent.appendChild(frag);
+    let temp = document.createElement('div');
+    temp.innerHTML = text;
+    let frag = document.createDocumentFragment();
+    while (temp.firstChild) {
+        frag.appendChild(temp.firstChild);// firstChild will be deleted after this operation
     }
-    else {
-        parent.appendChild(text);
-    }
+    parent.appendChild(frag);
 }
 
 
