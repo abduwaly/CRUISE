@@ -14,7 +14,7 @@ const me = {
 
     // optional data for an app item
     options: {
-        osIcons: ['cent_os', 'debin', 'suse', 'ubuntu', 'windows'],
+        osIcons: ['cent_os.png', 'debin.png', 'suse.png', 'ubuntu.png', 'windows.png'],
         tags: [
             {name: 'idle', class: 'tag-idle'},
             {name: 'building', class: 'tag-building'}
