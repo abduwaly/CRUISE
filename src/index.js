@@ -43,7 +43,7 @@ const me = {
                 class: me.options.tags[random].class
             },
             ip: '192.168.1.' + Math.ceil(Math.random() * 100),
-            path: '/var/lib/cruise-agent',
+            path: '/var/lib/pure-agent',
             resources: me.options.resources.sort().slice(0, 3),
             btn: {
                 flag: Boolean(random) ? '' : 'none',
