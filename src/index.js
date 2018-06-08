@@ -68,8 +68,13 @@ const me = {
      */
     bindIconTrash: function () {
         const delIcons = $class('icon-trash');
-        for (let i = 0; i < delIcons.length; i++) {
-            delIcons[i].onclick = function (e) {
+        // for (let i = 0; i < delIcons.length; i++) {
+        //     delIcons[i].onclick = function (e) {
+        //         me.rmResource(e);
+        //     }
+        // }
+        for (let i of delIcons) {
+            i.onclick = function (e) {
                 me.rmResource(e);
             }
         }
